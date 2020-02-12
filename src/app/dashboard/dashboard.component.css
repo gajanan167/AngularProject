@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+}
+
+.align-left{
+  position:absolute;
+  left:95%;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  }

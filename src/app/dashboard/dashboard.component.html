@@ -1,0 +1,30 @@
+<h3 style="text-align: center;">Employee Information</h3>
+<button class="btn btn-danger align-left" (click)="logout()">Log Out</button>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="employee_name">
+    <mat-header-cell *matHeaderCellDef> Employee Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.employee_name}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="employee_salary">
+    <mat-header-cell *matHeaderCellDef> Employee Salary </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.employee_salary}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="employee_age">
+    <mat-header-cell *matHeaderCellDef> Employee Age </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.employee_age}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
