@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
   }
   logout() {
        console.log("its working");
+       sessionStorage.clear();
+       console.log(sessionStorage);
        this.router.navigate(['/']);
   }
 }

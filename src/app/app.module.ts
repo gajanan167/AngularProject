@@ -11,6 +11,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthServiceService } from './auth-service.service';
 
 
 
@@ -29,12 +30,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginFormComponent },
-      { path: 'dashboard', component: DashboardComponent},
+      { path: 'dashboard',
+        component: DashboardComponent,
+        canActivate : [ AuthServiceService ]
+      },
       { path: '', redirectTo : "login" , pathMatch: "full" }
     ]),
     NoopAnimationsModule,
   ],
-  providers: [],
+  providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

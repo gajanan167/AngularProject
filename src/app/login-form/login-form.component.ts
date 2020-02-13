@@ -27,6 +27,7 @@ export class LoginFormComponent  {
    if (this.form.value.username === "gajanan" && this.form.value.password === "12345")
    {
      console.log("login");
+     sessionStorage.curruntUser = this.form.value.username;
      this.router.navigate(['/dashboard']);
    }
    else {
