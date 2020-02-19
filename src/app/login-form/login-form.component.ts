@@ -1,39 +1,28 @@
-
+import { LoginFormControlService } from './../services/login-form-control.service';
+import { LoginService } from './../services/login.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent  {
+export class LoginFormComponent implements OnInit {
+  username;
+  password;
+  form;
 
-  constructor(private router: Router ){}
-  form = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+  constructor(private loginServie: LoginService, private loginFormConService: LoginFormControlService) {}
 
-  });
- get username() {
-     return this.form.get('username');
- }
- get password() {
-  return this.form.get('password');
-}
- onSubmit() {
-   console.log("Its working");
-   console.log(this.form.value.username);
-   if (this.form.value.username === "gajanan" && this.form.value.password === "12345")
-   {
-     console.log("login");
-     sessionStorage.curruntUser = this.form.value.username;
-     this.router.navigate(['/dashboard']);
-   }
-   else {
-        this.form.setErrors({
-          invalidLogin : true
-        })
-   }
- }
+  ngOnInit() {
+    this.username = this.loginFormConService.username;
+    this.password = this.loginFormConService.password;
+    this.form = this.loginFormConService.form;
+  }
+
+  onSubmit() {
+    this.loginServie.login(this.loginFormConService.form.value.username, this.loginFormConService.form.value.password);
+
+  }
 }

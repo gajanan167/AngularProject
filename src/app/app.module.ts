@@ -1,17 +1,19 @@
-
+import { InterceptorService } from './services/interceptor.service';
+import { LoginFormControlService } from './services/login-form-control.service';
+import { LoginService } from './services/login.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule } from "@angular/material";
+import { MatTableModule, MatFormFieldModule, MatInputModule } from "@angular/material";
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthServiceService } from './auth-service.service';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -23,10 +25,18 @@ import { AuthServiceService } from './auth-service.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      timeOut: 1500,
+      positionClass: 'toast-top-center'
+    }),
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginFormComponent },
@@ -34,11 +44,14 @@ import { AuthServiceService } from './auth-service.service';
         component: DashboardComponent,
         canActivate : [ AuthServiceService ]
       },
-      { path: '', redirectTo : "login" , pathMatch: "full" }
-    ]),
-    NoopAnimationsModule,
+      { path: '**', redirectTo : "login" , pathMatch: "full" }
+    ])
   ],
-  providers: [AuthServiceService],
+  providers: [AuthServiceService, LoginService, LoginFormControlService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

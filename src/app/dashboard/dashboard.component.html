@@ -1,5 +1,10 @@
 <h3 style="text-align: center;">Employee Information</h3>
-<button class="btn btn-danger align-left" (click)="logout()">Log Out</button>
+<div>
+<button class="btn btn-danger float-right" (click)="logout()">Log Out</button>
+</div>
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Position Column -->
   <ng-container matColumnDef="id">

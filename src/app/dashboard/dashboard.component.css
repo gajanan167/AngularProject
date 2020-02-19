@@ -9,3 +9,8 @@ table {
   -webkit-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
   }
+  .mat-form-field {
+    width: 100%;
+    background-color: blueviolet;
+    color:white;
+  }
